@@ -1,20 +1,16 @@
 <template>
-  <div>{{someData}}</div>
+  <div>
+    <div class="k-main-title">晴天钟优化版-k186</div>
+    <div class="k-nav-container">
+      <router-link to="baidu" class="k-nav-go"><span>百度</span></router-link>
+      <router-link to="gaode" class="k-nav-go"><span>高德(开发中)</span></router-link>
+      <router-link to="google" class="k-nav-go"><span>谷歌（开发中）</span></router-link>
+    </div>
+  </div>
 </template>
 <script>
   export default{
-    data () {
-      return {
-        someData: ''
-      }
-    },
     mounted () {
-      this.$http.headers = {'Access-Control-Allow-Origin': '*'}
-      this.$http.get('http://ftp.astron.ac.cn/v4/bin/civil.php?lon=113.17&lat=23.09&ac=0&lang=en&output=json&tzshift=0').then(response => {
-        this.someData = response.body
-      }, response => {
-        console.log(response.body)
-      })
     }
   }
 </script>

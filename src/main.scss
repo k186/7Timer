@@ -1,0 +1,162 @@
+@import "reset";
+
+@function px2rem($px) {
+  @if (unitless($px)) {
+    @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels for you";
+    @return px2rem($px + 0px); // That may fail.
+  } @else if (unit($px) == rem) {
+    @return $px;
+  }
+  @return ($px / 75px) * 1rem;
+}
+
+html {
+  background: #efeff4;
+}
+body{
+  padding-bottom: px2rem(100px);
+}
+.k {
+  &-main-title {
+    text-align: center;
+    font-size: px2rem(36px);
+    padding: px2rem(20px) 0;
+    color: #333;
+  }
+  &-nav-container {
+    display: flex;
+  }
+  &-nav-go {
+    position: relative;
+    width: px2rem(250px);
+    height: px2rem(250px);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dddddd;
+    border-left: none;
+    background: white;
+    font-size: px2rem(32px);
+    color: #333333;
+    span {
+      vertical-align: middle;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      background: #000;
+    }
+    &:active:after {
+      opacity: .2;
+    }
+  }
+  &-map-box {
+    margin: px2rem(10px);
+    position: relative;
+  }
+  &-map-line-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    &:before, &:after {
+      content: '';
+      background: red;
+      position: absolute;
+      z-index: 1;
+    }
+    &:before {
+      height: 1px;
+      width: 100%;
+      top: 50%;
+    }
+    &:after {
+      height: 100%;
+      width: 1px;
+      left: 50%;
+    }
+  }
+  &-map-control {
+    margin: px2rem(20px);
+  }
+  &-map-input {
+    display: block;
+    width: 100%;
+    border: none;
+    height: px2rem(80px);
+    font-size: px2rem(32px);
+    padding: px2rem(10px);
+  }
+  &-map-btn {
+    height: px2rem(84px);
+    text-align: center;
+    line-height: px2rem(84px);
+    font-size: px2rem(32px);
+    color: white;
+    background: #1c98ff;
+    border-radius: px2rem(5px);
+    margin: px2rem(20px) 0;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0;
+    }
+    &:active:after{
+      opacity: 0.4;
+    }
+  }
+  &-map-ac{
+    font-size: px2rem(28px);
+    color: #333333;
+    padding: px2rem(20px) 0;
+  }
+  &-map-acList{
+    display: flex;
+    flex-wrap: nowrap;
+    background: white;
+    border-radius: px2rem(5px);
+    border: 1px solid #1c98ff;
+  }
+  &-ac{
+    width: 100%;
+    text-align: center;
+    height: px2rem(80px);
+    line-height: px2rem(80px);
+    border-left: 1px solid #1c98ff;
+    font-size: px2rem(28px);
+    user-select: none;
+    &:first-child{
+      border-left: none;
+    }
+    &.active{
+      background: #1c98ff;
+      color: white;
+    }
+  }
+  &-Timer-box{
+    height: px2rem(480px);
+    width: 100%;
+    overflow: scroll;
+  }
+}
+
+/* baidu */
+#k-baidu-Map {
+  width: 100%;
+  height: px2rem(400px);
+}
