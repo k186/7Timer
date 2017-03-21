@@ -16,42 +16,45 @@
         <div class="k-ac" :class="options.ac ===7?'active':'' " @click="setAc(7)">7Km</div>
       </div>
       <div class="k-map-btn" @click="search">搜索</div>
+      <div class="k-map-btn" @click="getCurrentLocation">当前位置</div>
     </div>
   </div>
 </template>
 <script>
   import {} from '../../static/core/baidu.js'
-  import tool from '../tools/tools'
+  import {mapGetters} from 'vuex'
+  // import tool from '../tools/tools'
+
   export default{
     data () {
       return {
         map: {},
-        options: {
-          lat: '',
-          lon: '',
-          ac: 0,
-          lang: 'zh-CN',
-          unit: 'metric',
-          output: 'internal',
-          tzshift: 0
-        },
         address: ''
+      }
+    },
+    computed: {
+      ...mapGetters({Timer7: 'Timer7'}),
+      options () {
+        return this.Timer7.options
       }
     },
     mounted () {
       let that = this
-      this.map = new window.BMap.Map('k-baidu-Map')
-      this.map.centerAndZoom(new window.BMap.Point(104.072366, 30.662304), 12)
-      this.map.addEventListener('tilesloaded', function () {
+      that.map = new window.BMap.Map('k-baidu-Map', {enableMapClick: false})
+      that.map.centerAndZoom(new window.BMap.Point(104.072366, 30.662304), 12)
+      that.map.addEventListener('tilesloaded', function () {
         that.getCenter()
       })
     },
     methods: {
       getCenter () {
         let point = this.map.getCenter()
-        this.options.lat = point.lat
-        this.options.lon = point.lng
-        this.getTimer()
+        this.$store.dispatch('timer7Update', {
+          options: {
+            lat: point.lat,
+            lon: point.lng
+          }
+        })
       },
       search () {
         let that = this
@@ -59,14 +62,24 @@
           renderOptions: {map: that.map}
         })
         local.search(that.address)
-        this.getTimer()
       },
       setAc (ac) {
-        this.options.ac = ac
-        this.getTimer()
+        this.$store.dispatch('timer7Update', {
+          options: {
+            ac: ac
+          }
+        })
       },
-      getTimer () {
-        this.$emit('eventHandle', tool.parseData(this.options))
+      getCurrentLocation () {
+        let that = this
+        let geolocation = new window.BMap.Geolocation()
+        geolocation.getCurrentPosition(function (r) {
+          if (this.getStatus() === 0) {
+            that.map.panTo(r.point)
+          } else {
+            window.alert('failed' + this.getStatus())
+          }
+        }, {enableHighAccuracy: false})
       }
     },
     beforeDestroy () {
