@@ -45,6 +45,7 @@
       that.map.addEventListener('tilesloaded', function () {
         that.getCenter()
       })
+      this.getCurrentLocation()
     },
     methods: {
       getCenter () {
