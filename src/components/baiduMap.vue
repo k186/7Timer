@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-  import {} from '../../static/core/baidu.js'
+  // import {} from '../../static/core/baidu.js'
   import {mapGetters} from 'vuex'
   // import tool from '../tools/tools'
 
