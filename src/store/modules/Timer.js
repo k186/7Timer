@@ -13,7 +13,7 @@ const state = {
     }
   }
 }
-/* api getters can use all */
+
 const getters = {
   Timer7: state => state.Timer7
 }
