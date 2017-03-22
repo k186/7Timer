@@ -1,28 +1,12 @@
 <template>
-  <div>
-    <div class="k-map-box">
-      <div class="k-map-line-box">
-      </div>
-      <div id="k-baidu-Map"></div>
-    </div>
-    <div class="k-map-control">
-      <div>
-        <input class="k-map-input" type="text" placeholder="输入地名搜索" v-model="address">
-      </div>
-      <div class="k-map-ac">海拔校准</div>
-      <div class="k-map-acList">
-        <div class="k-ac" :class="options.ac ===0?'active':'' " @click="setAc(0)">0Km</div>
-        <div class="k-ac" :class="options.ac ===2?'active':'' " @click="setAc(2)">2Km</div>
-        <div class="k-ac" :class="options.ac ===7?'active':'' " @click="setAc(7)">7Km</div>
-      </div>
-      <div class="k-map-btn" @click="search">搜索</div>
-      <div class="k-map-btn" @click="getCurrentLocation">当前位置</div>
-    </div>
-  </div>
+  <map-control :searchEvt='search'>
+    <input slot='address' class='k-map-input' type='text' placeholder='输入地名搜索' v-model='address'>
+    <div slot='getLocation' class='k-map-btn' @click.stop.self='getCurrentLocation'>当前位置</div>
+  </map-control>
 </template>
 <script>
-  // import {} from '../../static/core/baidu.js'
-  import {mapGetters} from 'vuex'
+  import {} from '../../static/core/baidu.js'
+  import mapControl from './mapcontrol.vue'
   // import tool from '../tools/tools'
 
   export default{
@@ -32,15 +16,59 @@
         address: ''
       }
     },
-    computed: {
-      ...mapGetters({Timer7: 'Timer7'}),
-      options () {
-        return this.Timer7.options
-      }
+    components: {
+      mapControl
     },
     mounted () {
       let that = this
-      that.map = new window.BMap.Map('k-baidu-Map', {enableMapClick: false})
+      let style = [
+        {
+          'featureType': 'road',
+          'elementType': 'all',
+          'stylers': {
+            'lightness': 20
+          }
+        },
+        {
+          'featureType': 'highway',
+          'elementType': 'geometry',
+          'stylers': {
+            'color': '#f49935'
+          }
+        },
+        {
+          'featureType': 'railway',
+          'elementType': 'all',
+          'stylers': {
+            'visibility': 'off'
+          }
+        },
+        {
+          'featureType': 'local',
+          'elementType': 'labels',
+          'stylers': {
+            'visibility': 'off'
+          }
+        },
+        {
+          'featureType': 'water',
+          'elementType': 'all',
+          'stylers': {
+            'color': '#d1e5ff'
+          }
+        },
+        {
+          'featureType': 'poi',
+          'elementType': 'labels',
+          'stylers': {
+            'visibility': 'off'
+          }
+        }
+      ]
+      that.map = new window.BMap.Map('k-Map', {enableMapClick: false})
+      that.map.setMapStyle({
+        styleJson: [style]
+      })
       that.map.centerAndZoom(new window.BMap.Point(104.072366, 30.662304), 12)
       that.map.addEventListener('tilesloaded', function () {
         that.getCenter()

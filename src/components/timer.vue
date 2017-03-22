@@ -1,6 +1,6 @@
 <template>
   <div class="k-Timer-box">
-    <img :src="origin + src" alt="">
+    <img :src="origin + src" alt="获取失败,晴天钟官网维护中...">
   </div>
 </template>
 <script>
