@@ -55,13 +55,6 @@
           placeSearch.search(that.address)
         })
       },
-      setAc (ac) {
-        this.$store.dispatch('timer7Update', {
-          options: {
-            ac: ac
-          }
-        })
-      },
       getCurrentLocation () {
         let that = this
         that.map.plugin('AMap.Geolocation', function () {

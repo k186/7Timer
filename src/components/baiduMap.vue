@@ -92,13 +92,6 @@
         })
         local.search(that.address)
       },
-      setAc (ac) {
-        this.$store.dispatch('timer7Update', {
-          options: {
-            ac: ac
-          }
-        })
-      },
       getCurrentLocation () {
         let that = this
         let geolocation = new window.BMap.Geolocation()

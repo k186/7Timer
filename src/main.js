@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './app.vue'
+// import google from './pages/google.vue'
 import VueRouter from 'vue-router'
 import Mapping from './router'
 import store from './store'
