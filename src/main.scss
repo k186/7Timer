@@ -21,6 +21,7 @@ body{
     text-align: center;
     font-size: px2rem(36px);
     padding: px2rem(20px) 0;
+    margin-top: px2rem(50px);
     color: #333;
   }
   &-nav-container {
@@ -160,6 +161,11 @@ body{
     width: px2rem(80px);
     border-radius: px2rem(10px);
     margin-bottom: px2rem(10px);
+  }
+  &-tips{
+    background: rgba(0,0,0,.2);
+    height: px2rem(40px);
+    line-height: px2rem(40px);
   }
 }
 

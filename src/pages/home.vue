@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="k-tips">当前状态:{{tips}}</div>
     <div class="k-main-title">晴天钟优化版-k186</div>
     <div class="k-nav-container">
       <router-link to="baidu" class="k-nav-go"><img class="k-btn-icon" src="./img/baidu.jpg" alt=""><span>百度</span></router-link>
@@ -17,3 +18,22 @@
     </div>
   </div>
 </template>
+<script>
+  export default {
+    data () {
+      return {
+        tips: '正常使用'
+      }
+    },
+    mounted () {
+      this.$http.get('./static/statu.json').then(response => {
+        let data = JSON.parse(JSON.stringify(response.body)).tips
+        if (data !== '') {
+          this.tips = data
+        }
+      }, response => {
+
+      })
+    }
+  }
+</script>
