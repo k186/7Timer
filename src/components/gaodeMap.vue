@@ -43,7 +43,6 @@
       },
       searchEvt () {
         let that = this
-        console.log(1)
         window.AMap.service(['AMap.PlaceSearch'], function () {
           let placeSearch = new window.AMap.PlaceSearch({ // 构造地点查询类
             pageSize: 1,
